@@ -10,6 +10,7 @@ FUNCTION_BLOCK general_simmilarity
 VAR_INPUT
 	structure : REAL;
 	text : REAL;
+	keywords : REAL;
 END_VAR
 
 // Define output variable
@@ -29,6 +30,12 @@ FUZZIFY text
     TERM simmilar := gauss 1 0.125;
 END_FUZZIFY
 
+FUZZIFY keywords
+	TERM not_simmilar := gauss 0 0.125 ;
+    TERM somewhat_simmilar := gauss 0.5 0.125;
+    TERM simmilar := gauss 1 0.125;
+END_FUZZIFY
+
 DEFUZZIFY general_simmilarity
 	TERM not_simmilar := gauss 0 0.125 ;
     TERM somewhat_simmilar := gauss 0.5 0.125;
@@ -43,7 +50,7 @@ RULEBLOCK No3
 	ACT : MIN;
 	ACCU : MAX;
 
-	RULE 1 : IF text IS simmilar THEN general_simmilarity IS simmilar;
+	RULE 1 : IF text IS simmilar OR keywords IS simmilar THEN general_simmilarity IS simmilar;
 	RULE 2 : IF structure IS simmilar AND text IS somewhat_simmilar THEN general_simmilarity IS simmilar;
 	RULE 3 : IF structure IS simmilar THEN general_simmilarity IS somewhat_simmilar;
 	RULE 4 : IF text IS not_simmilar THEN general_simmilarity IS not_simmilar;
