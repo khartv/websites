@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">erjo33wol</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/websites?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.connection.release_mode">auto</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.connection.autoReconnect">true</property>
+
+        <mapping class="main.java.pl.com.s396352.lsr.entities.Websites"/>
+        <mapping class="main.java.pl.com.s396352.lsr.entities.Sentences"/>
+        <mapping class="main.java.pl.com.s396352.lsr.entities.Words"/>
+        <mapping class="main.java.pl.com.s396352.lsr.entities.Subsequences"/>
+        <mapping class="main.java.pl.com.s396352.lsr.entities.Comparisons"/>
+    </session-factory>
+</hibernate-configuration>

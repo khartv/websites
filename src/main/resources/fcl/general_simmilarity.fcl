@@ -1,0 +1,52 @@
+//////////////////////////////////////
+//                                  //
+//        General simmilarity       //
+//                                  //
+//////////////////////////////////////
+
+FUNCTION_BLOCK general_simmilarity
+
+// Define input variables
+VAR_INPUT
+	structure : REAL;
+	text : REAL;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+	general_simmilarity : REAL;
+END_VAR
+
+FUZZIFY structure
+	TERM not_simmilar := gauss 0 0.125 ;
+	TERM somewhat_simmilar := gauss 0.5 0.125;
+	TERM simmilar := gauss 1 0.125;
+END_FUZZIFY
+
+FUZZIFY text
+	TERM not_simmilar := gauss 0 0.125 ;
+    TERM somewhat_simmilar := gauss 0.5 0.125;
+    TERM simmilar := gauss 1 0.125;
+END_FUZZIFY
+
+DEFUZZIFY general_simmilarity
+	TERM not_simmilar := gauss 0 0.125 ;
+    TERM somewhat_simmilar := gauss 0.5 0.125;
+    TERM simmilar := gauss 1 0.125;
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+// Inference rules
+RULEBLOCK No3
+	AND : MIN;
+	ACT : MIN;
+	ACCU : MAX;
+
+	RULE 1 : IF text IS simmilar THEN general_simmilarity IS simmilar;
+	RULE 2 : IF structure IS simmilar AND text IS somewhat_simmilar THEN general_simmilarity IS simmilar;
+	RULE 3 : IF structure IS simmilar THEN general_simmilarity IS somewhat_simmilar;
+	RULE 4 : IF text IS not_simmilar THEN general_simmilarity IS not_simmilar;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK

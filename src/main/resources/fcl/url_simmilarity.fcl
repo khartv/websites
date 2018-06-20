@@ -1,0 +1,52 @@
+//////////////////////////////////////
+//                                  //
+//          URL simmilarity         //
+//                                  //
+//////////////////////////////////////
+
+FUNCTION_BLOCK url_simmilarity
+
+// Define input variables
+VAR_INPUT
+	levenshtein : REAL;
+	ngram : REAL;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT
+	url_simmilarity : REAL;
+END_VAR
+
+FUZZIFY levenshtein
+	TERM not_simmilar := gauss 0 0.125 ;
+	TERM somewhat_simmilar := gauss 0.5 0.125;
+	TERM simmilar := gauss 1 0.125;
+END_FUZZIFY
+
+FUZZIFY ngram
+	TERM not_simmilar := gauss 0 0.125 ;
+    TERM somewhat_simmilar := gauss 0.5 0.125;
+    TERM simmilar := gauss 1 0.125;
+END_FUZZIFY
+
+DEFUZZIFY url_simmilarity
+	TERM not_simmilar := gauss 0 0.125 ;
+    TERM somewhat_simmilar := gauss 0.5 0.125;
+    TERM simmilar := gauss 1 0.125;
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+// Inference rules
+RULEBLOCK No1
+	AND : MIN;
+	ACT : MIN;
+	ACCU : MAX;
+
+	RULE 1 : IF levenshtein IS not_simmilar OR ngram IS not_simmilar THEN url_simmilarity IS not_simmilar;
+	RULE 2 : IF levenshtein IS somewhat_simmilar AND ngram IS somewhat_simmilar THEN url_simmilarity IS somewhat_simmilar;
+	RULE 3 : IF levenshtein IS simmilar AND ngram IS simmilar THEN url_simmilarity IS simmilar;
+	RULE 4 : IF (levenshtein IS simmilar AND ngram IS somewhat_simmilar) OR (levenshtein IS somewhat_simmilar AND ngram IS simmilar) THEN url_simmilarity IS simmilar;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
