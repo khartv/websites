@@ -40,7 +40,7 @@ public class Sentence {
             while (tokenizer.hasMoreTokens()) {
                 words.add(new Word(session, tokenizer.nextToken(), getId()));
             }
-        } else if (type.equals("CSSids") || type.equals("CSSclasses")) {
+        } else if (type.equals("CSSids") || type.equals("CSSclasses") || type.equals("topWords")) {
             StringTokenizer tokenizer = new StringTokenizer(sentence, " \t\n\r\f");
             while (tokenizer.hasMoreTokens()) {
                 words.add(new Word(session, tokenizer.nextToken(), getId()));

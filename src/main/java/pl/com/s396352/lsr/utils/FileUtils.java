@@ -23,7 +23,7 @@ public class FileUtils {
             reader = new BufferedReader(new InputStreamReader(in));
 
             String line = null;
-            while ((line = reader.readLine()) != null)
+            while ((line = reader.readLine()) != null && !line.startsWith("#"))
             {
                 list.add(line);
             }

@@ -2,10 +2,7 @@ package main.java.pl.com.s396352.lsr.utils;
 
 import main.java.pl.com.s396352.lsr.businessObjects.Comparison;
 import main.java.pl.com.s396352.lsr.businessObjects.Website;
-import main.java.pl.com.s396352.lsr.comparators.CSSComparator;
-import main.java.pl.com.s396352.lsr.comparators.NgramTextComparator;
-import main.java.pl.com.s396352.lsr.comparators.URLLevenshteinComparator;
-import main.java.pl.com.s396352.lsr.comparators.URLNgramComparator;
+import main.java.pl.com.s396352.lsr.comparators.*;
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
@@ -48,8 +45,10 @@ public class FuzzyUtils {
         FIS fis = fu.getGenSimFis();
         FunctionBlock functionBlock = fis.getFunctionBlock("general_simmilarity");
         Comparison NgramComp = w.getComparisonWith(w1, new NgramTextComparator());
+        Comparison KeywordComp = w.getComparisonWith(w1, new KeywordComparator());
         functionBlock.setVariable("structure", structuralSimmilarity);
         functionBlock.setVariable("text", NgramComp.getResultNumerical());
+
         // Evaluate
         fis.evaluate();
         // Show output variable's chart

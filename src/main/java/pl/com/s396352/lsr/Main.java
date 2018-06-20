@@ -1,26 +1,18 @@
 package main.java.pl.com.s396352.lsr;
 
 import main.java.pl.com.s396352.lsr.businessObjects.Comparison;
-import main.java.pl.com.s396352.lsr.businessObjects.Word;
-import main.java.pl.com.s396352.lsr.comparators.*;
 import main.java.pl.com.s396352.lsr.businessObjects.Website;
-import main.java.pl.com.s396352.lsr.entities.Comparisons;
-import main.java.pl.com.s396352.lsr.entities.Words;
+import main.java.pl.com.s396352.lsr.comparators.*;
 import main.java.pl.com.s396352.lsr.utils.FileUtils;
 import main.java.pl.com.s396352.lsr.utils.FuzzyUtils;
 import main.java.pl.com.s396352.lsr.utils.HibernateUtil;
-import net.sourceforge.jFuzzyLogic.FIS;
-import net.sourceforge.jFuzzyLogic.FunctionBlock;
-import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -118,7 +110,7 @@ public class Main {
     private static List<BaseComparator> getComparators()
     {
         List<BaseComparator> result = new ArrayList<>();
-        //result.add(new KeywordComparator());
+        result.add(new KeywordComparator());
         result.add(new URLLevenshteinComparator());
         result.add(new URLNgramComparator());
         result.add(new NgramTextComparator());

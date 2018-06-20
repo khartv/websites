@@ -10,6 +10,7 @@ public class Words {
     private int id;
     private int sentenceId;
     private String word;
+    private Double importance;
 
     @Id
     @Column(name = "ID")
@@ -38,5 +39,14 @@ public class Words {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    @Column(name = "IMPORTANCE")
+    public Double getImportance() {
+        return importance;
+    }
+
+    public void setImportance(Double importance) {
+        this.importance = importance;
     }
 }

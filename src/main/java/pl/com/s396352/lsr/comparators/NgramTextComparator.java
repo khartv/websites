@@ -28,22 +28,22 @@ public class NgramTextComparator extends BaseComparator {
                     d = temp;
                     if(temp > 0.25)
                     {
-                        System.out.println(s1);
-                        System.out.println(s2);
-                        System.out.println(temp);
-                        System.out.println(d);
-                        System.out.println(distance);
+//                        System.out.println(s1);
+//                        System.out.println(s2);
+//                        System.out.println(temp);
+//                        System.out.println(d);
+//                        System.out.println(distance);
                     }
                 }
             }
             distance += d;
         }
 
-        System.out.println("=================================================================");
-        System.out.println("=================================================================");
-        System.out.println(distance/lSentences.size());
-        System.out.println("=================================================================");
-        System.out.println("=================================================================");
+//        System.out.println("=================================================================");
+//        System.out.println("=================================================================");
+//        System.out.println(distance/lSentences.size());
+//        System.out.println("=================================================================");
+//        System.out.println("=================================================================");
         return createComparison(session, left, right, this, distance/lSentences.size());
     }
 
